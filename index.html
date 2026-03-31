@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bring Micro Center to Stillwater</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #E8232A; --red-dark: #B01B21; --black: #0E0E0E; --off-white: #F5F3EE;
+    --gray-light: #EBEBEB; --gray-mid: #888; --text: #0E0E0E; --text-muted: #555;
+    --card-bg: #FFFFFF; --section-bg: #F5F3EE; --border: #D8D5CE;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text); line-height: 1.6; }
+  .hero { background: var(--black); color: white; padding: 80px 40px 60px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 320px; height: 320px; background: var(--red); border-radius: 50%; opacity: 0.12; }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--red); text-transform: uppercase; margin-bottom: 16px; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 9vw, 96px); line-height: 0.95; letter-spacing: 0.01em; margin-bottom: 24px; }
+  .hero h1 span { color: var(--red); }
+  .hero-sub { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 540px; margin-bottom: 36px; }
+  .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+  .hero-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: white; display: block; line-height: 1; }
+  .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-pills { display: flex; gap: 0; background: var(--black); padding: 0 40px; border-bottom: 3px solid var(--red); overflow-x: auto; }
+  .nav-pill { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); padding: 14px 20px; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -3px; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; }
+  .nav-pill:hover { color: rgba(255,255,255,0.75); }
+  .nav-pill.active { color: var(--red); border-bottom-color: var(--red); }
+  .section { display: none; padding: 48px 40px; max-width: 900px; margin: 0 auto; }
+  .section.active { display: block; }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--red); text-transform: uppercase; margin-bottom: 8px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; margin-bottom: 24px; color: var(--text); }
+  .prose { font-size: 15px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 24px 0; }
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 4px; padding: 20px; }
+  .card-icon { width: 36px; height: 36px; background: var(--red); border-radius: 3px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 16px; }
+  .card h3 { font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--text); }
+  .card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .sw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .sw-col { background: var(--card-bg); border: 1px solid var(--border); border-radius: 4px; padding: 20px; }
+  .sw-col-header { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot-green { background: #3B7A1C; }
+  .dot-red { background: var(--red); }
+  .sw-item { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid var(--gray-light); display: flex; align-items: flex-start; gap: 8px; }
+  .sw-item:last-child { border-bottom: none; }
+  .sw-prefix { font-weight: 500; color: var(--text); flex-shrink: 0; }
+  .rating-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--gray-light); }
+  .rating-label { font-size: 14px; color: var(--text); min-width: 200px; }
+  .rating-bar-wrap { flex: 1; height: 6px; background: var(--gray-light); border-radius: 3px; overflow: hidden; }
+  .rating-bar { height: 100%; background: var(--red); border-radius: 3px; }
+  .rating-num { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--text); min-width: 30px; text-align: right; }
+  .rating-avg-box { background: var(--black); color: white; border-radius: 4px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+  .rating-avg-label { font-size: 13px; color: rgba(255,255,255,0.55); }
+  .rating-avg-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--red); line-height: 1; }
+  .rating-avg-sub { font-size: 12px; color: rgba(255,255,255,0.4); }
+  .rec-box { background: var(--black); border-left: 4px solid var(--red); border-radius: 4px; padding: 28px 28px 28px 24px; margin: 24px 0; }
+  .rec-box p { color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.7; }
+  .rec-verdict { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); margin-bottom: 10px; }
+  .info-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+  .info-table td { padding: 10px 0; font-size: 14px; border-bottom: 1px solid var(--gray-light); vertical-align: top; }
+  .info-table td:first-child { color: var(--gray-mid); width: 38%; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; padding-right: 16px; }
+  .quote-block { border-left: 3px solid var(--red); padding: 16px 20px; background: var(--card-bg); border-radius: 0 4px 4px 0; margin: 20px 0; font-size: 15px; color: var(--text); line-height: 1.7; }
+  .cta-banner { background: var(--red); color: white; padding: 32px; border-radius: 4px; text-align: center; margin-top: 32px; }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: 36px; margin-bottom: 8px; }
+  .cta-banner p { font-size: 14px; opacity: 0.85; }
+  .demo-step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--gray-light); }
+  .demo-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--red); line-height: 1; min-width: 36px; }
+  .demo-body h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+  .demo-body p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .code-pill { display: inline-block; background: var(--black); color: #A5F3C4; font-family: 'DM Mono', monospace; font-size: 11px; padding: 2px 8px; border-radius: 3px; margin: 4px 2px 0; }
+  @media (max-width: 600px) {
+    .hero, .section { padding: 40px 20px; }
+    .nav-pills { padding: 0 20px; }
+    .sw-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+    .rating-label { min-width: 140px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-tag">DevOps Tools Product Review — MIS Applied Security</div>
+  <h1>Bring <span>Micro</span><br>Center to<br>Stillwater</h1>
+  <p class="hero-sub">A campaign for Stillwater, OK — and a comprehensive product review of Amazon Web Services as a CI/CD platform.</p>
+  <div class="hero-stats">
+    <div><span class="hero-stat-num">28K</span><span class="hero-stat-label">OSU students</span></div>
+    <div><span class="hero-stat-num">3,500+</span><span class="hero-stat-label">CS/MIS/EE majors</span></div>
+    <div><span class="hero-stat-num">0</span><span class="hero-stat-label">PC part stores</span></div>
+  </div>
+</div>
+<nav class="nav-pills">
+  <button class="nav-pill active" onclick="showTab('intro',this)">Introduction</button>
+  <button class="nav-pill" onclick="showTab('sw',this)">Strengths & Weaknesses</button>
+  <button class="nav-pill" onclick="showTab('ratings',this)">Ratings</button>
+  <button class="nav-pill" onclick="showTab('rec',this)">Recommendation</button>
+  <button class="nav-pill" onclick="showTab('demo',this)">Demo Features</button>
+  <button class="nav-pill" onclick="showTab('campaign',this)">Campaign</button>
+</nav>
+<section id="intro" class="section active">
+  <div class="section-label">Section A</div>
+  <div class="section-title">Introduction</div>
+  <table class="info-table">
+    <tr><td>Names</td><td>Blake Harrison, Luke Hankins, Cole Sherer</td></tr>
+    <tr><td>Platform</td><td>Amazon Web Services (AWS) — CodePipeline, CodeBuild, CodeDeploy</td></tr>
+    <tr><td>Launched</td><td>AWS launched in 2006; CodePipeline introduced in 2015</td></tr>
+    <tr><td>Problem solved</td><td>Automates the build, test, and deployment lifecycle so development teams can ship software faster and more reliably without manual intervention</td></tr>
+    <tr><td>Main competitors</td><td>Jenkins, TeamCity, GitHub Actions, GitLab CI/CD, Azure DevOps, CircleCI</td></tr>
+    <tr><td>Target users</td><td>Enterprises and cloud-native teams already invested in the AWS ecosystem; scales from startups to Fortune 500</td></tr>
+  </table>
+  <div class="section-label" style="margin-top:32px;">Key Features</div>
+  <div class="card-grid">
+    <div class="card"><div class="card-icon">⚙</div><h3>CodePipeline</h3><p>Visual, event-driven pipeline that orchestrates source → build → test → deploy stages automatically.</p></div>
+    <div class="card"><div class="card-icon">🔨</div><h3>CodeBuild</h3><p>Fully managed build service that compiles code, runs unit tests, and produces deployment-ready artifacts.</p></div>
+    <div class="card"><div class="card-icon">🚀</div><h3>CodeDeploy</h3><p>Automates deployments to EC2, Lambda, or on-prem servers with rollback support and traffic shifting.</p></div>
+    <div class="card"><div class="card-icon">🔗</div><h3>Deep AWS Integration</h3><p>Native connections to S3, ECR, ECS, Lambda, CloudFormation, IAM, and CloudWatch out of the box.</p></div>
+  </div>
+  <div class="section-label" style="margin-top:32px;">Use Case Example — Netflix</div>
+  <p class="prose">Netflix uses AWS extensively across its delivery infrastructure. Their engineering teams leverage CodePipeline and CodeDeploy alongside services like Lambda and ECS to push thousands of code changes per day globally. The fully managed nature of AWS CI/CD tools means Netflix engineers spend less time maintaining pipeline infrastructure and more time building product features — a critical advantage at their scale.</p>
+</section>
+<section id="sw" class="section">
+  <div class="section-label">Section B</div>
+  <div class="section-title">Strengths & Weaknesses</div>
+  <div class="sw-grid">
+    <div class="sw-col">
+      <div class="sw-col-header"><span class="dot dot-green"></span> Strengths (+)</div>
+      <div class="sw-item"><span class="sw-prefix">+</span> Free tier includes 1 active CodePipeline per month</div>
+      <div class="sw-item"><span class="sw-prefix">+</span> No server maintenance — fully managed infrastructure</div>
+      <div class="sw-item"><span class="sw-prefix">+</span> Native integration with 200+ AWS services</div>
+      <div class="sw-item"><span class="sw-prefix">+</span> Scales automatically from small to enterprise workloads</div>
+      <div class="sw-item"><span class="sw-prefix">+</span> Pay-per-use pricing — no upfront cost</div>
+      <div class="sw-item"><span class="sw-prefix">+</span> Strong IAM-based security and compliance controls</div>
+      <div class="sw-item"><span class="sw-prefix">+</span> GUI-based pipeline editor with drag-and-drop stages</div>
+      <div class="sw-item"><span class="sw-prefix">+</span> Extensive documentation and community support</div>
+    </div>
+    <div class="sw-col">
+      <div class="sw-col-header"><span class="dot dot-red"></span> Areas for Improvement (–)</div>
+      <div class="sw-item"><span class="sw-prefix">–</span> Steep learning curve for AWS beginners</div>
+      <div class="sw-item"><span class="sw-prefix">–</span> Costs can escalate quickly without usage monitoring</div>
+      <div class="sw-item"><span class="sw-prefix">–</span> Heavily tied to AWS ecosystem — limited portability</div>
+      <div class="sw-item"><span class="sw-prefix">–</span> CodePipeline UI less intuitive than GitHub Actions YAML</div>
+      <div class="sw-item"><span class="sw-prefix">–</span> Debugging build failures requires navigating multiple consoles</div>
+      <div class="sw-item"><span class="sw-prefix">–</span> Limited built-in testing integrations vs. competitors</div>
+      <div class="sw-item"><span class="sw-prefix">–</span> Free tier insufficient for multi-pipeline student projects</div>
+    </div>
+  </div>
+</section>
+<section id="ratings" class="section">
+  <div class="section-label">Section C</div>
+  <div class="section-title">Ratings</div>
+  <div class="rating-row"><div class="rating-label">Ease of Use</div><div class="rating-bar-wrap"><div class="rating-bar" style="width:60%"></div></div><div class="rating-num">6 / 10</div></div>
+  <div class="rating-row"><div class="rating-label">Usefulness for Student Project</div><div class="rating-bar-wrap"><div class="rating-bar" style="width:65%"></div></div><div class="rating-num">6.5 / 10</div></div>
+  <div class="rating-row"><div class="rating-label">Cost / Pricing Structure</div><div class="rating-bar-wrap"><div class="rating-bar" style="width:70%"></div></div><div class="rating-num">7 / 10</div></div>
+  <div class="rating-row"><div class="rating-label">Features</div><div class="rating-bar-wrap"><div class="rating-bar" style="width:90%"></div></div><div class="rating-num">9 / 10</div></div>
+  <div class="rating-avg-box">
+    <div><div class="rating-avg-label">Overall average</div><div class="rating-avg-sub">(6 + 6.5 + 7 + 9) ÷ 4</div></div>
+    <div style="text-align:right;"><div class="rating-avg-num">7.1</div><div class="rating-avg-sub">out of 10</div></div>
+  </div>
+</section>
+<section id="rec" class="section">
+  <div class="section-label">Section D</div>
+  <div class="section-title">Overall Recommendation</div>
+  <div class="rec-box">
+    <div class="rec-verdict">Conditionally Recommended</div>
+    <p>AWS CodePipeline is a powerful, production-grade CI/CD platform with industry-leading features and reliability. For student projects, it offers genuine real-world exposure — the same tooling used by Netflix, Airbnb, and NASA. However, it comes with a meaningful learning curve and costs that can catch newcomers off guard without careful monitoring.</p>
+  </div>
+  <p class="prose">We recommend AWS for student projects with conditions: teams should set up AWS billing alerts from day one, take advantage of the AWS Educate / Academy programs for free credits, and pair the platform with clear documentation habits. The free tier covers one active pipeline, which is enough for a single-branch course project.</p>
+  <p class="prose">Compared to Jenkins (more control, more setup overhead) and TeamCity (better UI, higher licensing cost), AWS strikes a middle ground — it is the only option among the three that requires zero infrastructure setup and provides a genuinely cloud-native experience. For MIS students headed toward cloud or enterprise IT roles, AWS is the most career-relevant choice of the three platforms.</p>
+  <div class="card-grid" style="margin-top:24px;">
+    <div class="card"><h3>Best for</h3><p>Teams with AWS Educate access, cloud career focus, or projects deploying to EC2/Lambda</p></div>
+    <div class="card"><h3>Not ideal for</h3><p>Beginners with no cloud experience or projects where cost predictability is critical</p></div>
+  </div>
+</section>
+<section id="demo" class="section">
+  <div class="section-label">Demonstration Requirement</div>
+  <div class="section-title">Two Key Features</div>
+  <p class="prose">The following two features were demonstrated as part of this review to illustrate the practical capabilities of AWS as a CI/CD platform.</p>
+  <div class="demo-step">
+    <div class="demo-num">01</div>
+    <div class="demo-body">
+      <h3>Feature 1 — Automated Pipeline via AWS CodePipeline</h3>
+      <p>We configured a three-stage pipeline (Source → Build → Deploy) connected to a GitHub repository. On every code push, CodePipeline automatically triggered CodeBuild to compile the app and run tests, then deployed the artifact to an S3-hosted static site.</p>
+      <p style="margin-top:8px;"><strong>Value:</strong> A developer commits code and within minutes it is live — no SSH, no manual uploads.</p>
+      <span class="code-pill">Source: GitHub</span><span class="code-pill">Build: buildspec.yml</span><span class="code-pill">Deploy: S3</span>
+    </div>
+  </div>
+  <div class="demo-step">
+    <div class="demo-num">02</div>
+    <div class="demo-body">
+      <h3>Feature 2 — Build Notifications via Amazon SNS + CloudWatch</h3>
+      <p>We connected the pipeline to an SNS topic that sends an email alert on build success or failure. CloudWatch logs were also configured to capture full CodeBuild output, allowing the team to diagnose errors without leaving the AWS console.</p>
+      <p style="margin-top:8px;"><strong>Value:</strong> Instant visibility into pipeline health — failed builds surface immediately via email.</p>
+      <span class="code-pill">CloudWatch Logs</span><span class="code-pill">SNS Email Alert</span><span class="code-pill">EventBridge Rule</span>
+    </div>
+  </div>
+</section>
+<section id="campaign" class="section">
+  <div class="section-label">Stillwater, OK Campaign</div>
+  <div class="section-title">Bring Micro Center Here</div>
+  <p class="prose">Stillwater is home to Oklahoma State University — one of the largest engineering and technology universities in the region. With over 3,500 students enrolled in Computer Science, Management Information Systems, and Electrical Engineering programs, the demand for quality tech retail is undeniable and currently completely unmet.</p>
+  <div class="quote-block">"The nearest Micro Center is in Dallas — a 3.5 hour drive. OSU students are forced to pay premium prices on Amazon or wait days for shipping on parts they need today. A Micro Center in Stillwater would serve students, faculty, and the broader north-central Oklahoma tech community from day one."</div>
+  <div class="card-grid">
+    <div class="card"><div class="card-icon">🎓</div><h3>Built-in customer base</h3><p>28,000 students, thousands of whom build PCs, upgrade laptops, and need components for coursework and personal projects.</p></div>
+    <div class="card"><div class="card-icon">🏗️</div><h3>Growing tech ecosystem</h3><p>OSU's Innovation District and Stillwater's emerging startup scene create sustained demand for hardware, tools, and peripherals.</p></div>
+    <div class="card"><div class="card-icon">📍</div><h3>Strategic location</h3><p>Stillwater sits between OKC and Tulsa — a Micro Center here would also draw customers from the surrounding region.</p></div>
+    <div class="card"><div class="card-icon">💻</div><h3>No local competition</h3><p>Best Buy is 45 minutes away. There is no dedicated PC component retailer within 60 miles. The market is wide open.</p></div>
+  </div>
+  <div class="cta-banner"><h2>Stillwater is Ready. Are You?</h2><p>Join us in calling on Micro Center to open its next location in Stillwater, Oklahoma — where 28,000 students are waiting.</p></div>
+</section>
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
