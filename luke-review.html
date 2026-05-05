@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS Product Review — Introduction & Strengths</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cyan: #22d3ee;
+    --black: #0E0E0E;
+    --surface: #141414;
+    --border: #1f1f1f;
+    --text: #e5e5e5;
+    --muted: #666;
+    --green: #3B7A1C;
+    --red: #f43f5e;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14,14,14,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 52px;
+  }
+
+  .nav-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-right: 32px;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 0; }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 16px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .page-tag::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--cyan);
+    display: inline-block;
+  }
+
+  .page-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+
+  .page-title span { color: var(--cyan); }
+
+  .page-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 520px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  section { margin-bottom: 56px; }
+
+  /* INFO TABLE */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .info-table tr { border-bottom: 1px solid var(--border); }
+  .info-table tr:last-child { border-bottom: none; }
+
+  .info-table td {
+    padding: 12px 16px;
+    font-size: 14px;
+    vertical-align: top;
+  }
+
+  .info-table td:first-child {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    width: 36%;
+    border-right: 1px solid var(--border);
+  }
+
+  .info-table td:last-child { color: var(--text); }
+
+  /* FEATURES GRID */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px;
+    transition: border-color 0.2s;
+  }
+
+  .feature-card:hover { border-color: var(--cyan); }
+
+  .feature-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .feature-card h3 {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .feature-card p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* USE CASE */
+  .use-case-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan);
+    border-radius: 0 4px 4px 0;
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+
+  .use-case-box h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+
+  .use-case-box p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* SW GRID */
+  .sw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .sw-col {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  .sw-col-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .dot-green { background: #22c55e; }
+  .dot-red { background: var(--red); }
+
+  .sw-item {
+    font-size: 13px;
+    color: #999;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .sw-item:last-child { border-bottom: none; }
+
+  .sw-prefix {
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .sw-col:first-child .sw-prefix { color: #22c55e; }
+  .sw-col:last-child .sw-prefix { color: var(--red); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 32px 40px;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid var(--cyan);
+    border-radius: 3px;
+    margin-bottom: 24px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .back-btn:hover { background: var(--cyan); color: var(--black); }
+
+  @media (max-width: 600px) {
+    main { padding: 40px 20px 60px; }
+    nav { padding: 0 20px; }
+    .sw-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">MicroCenter ▸ STW</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="luke-review.html" class="active">Review</a>
+    <a href="cole-ratings.html">Ratings</a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-header">
+    <div class="page-tag">Luke Hankins · Section A & B</div>
+    <h1 class="page-title">AWS <span>Product</span><br>Review</h1>
+    <p class="page-sub">Introduction, platform overview, and strengths & weaknesses of Amazon Web Services as a CI/CD tool.</p>
+  </div>
+
+  <!-- SECTION A -->
+  <section>
+    <div class="section-label">Section A</div>
+    <div class="section-title">Introduction</div>
+
+    <table class="info-table">
+      <tr><td>Names</td><td>Blake Harrison, Luke Hankins, Cole Sherer</td></tr>
+      <tr><td>Platform</td><td>Amazon Web Services — CodePipeline, CodeBuild, CodeDeploy</td></tr>
+      <tr><td>Launched</td><td>AWS launched in 2006; CodePipeline introduced in 2015</td></tr>
+      <tr><td>Problem Solved</td><td>Automates the build, test, and deploy lifecycle so development teams can ship software faster and more reliably without manual intervention</td></tr>
+      <tr><td>Competitors</td><td>Jenkins, TeamCity, GitHub Actions, GitLab CI/CD, Azure DevOps, CircleCI</td></tr>
+      <tr><td>Target Users</td><td>Enterprises and cloud-native teams already invested in the AWS ecosystem; scales from startups to Fortune 500</td></tr>
+    </table>
+
+    <div style="margin-top: 32px;">
+      <div class="section-label">Key Features</div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="feature-icon">⚙</span>
+          <h3>CodePipeline</h3>
+          <p>Visual, event-driven pipeline that orchestrates source → build → test → deploy stages automatically.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔨</span>
+          <h3>CodeBuild</h3>
+          <p>Fully managed build service that compiles code, runs unit tests, and produces deployment-ready artifacts.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🚀</span>
+          <h3>CodeDeploy</h3>
+          <p>Automates deployments to EC2, Lambda, or on-prem servers with rollback support and traffic shifting.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔗</span>
+          <h3>Deep Integration</h3>
+          <p>Native connections to S3, ECR, ECS, Lambda, CloudFormation, IAM, and CloudWatch out of the box.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔔</span>
+          <h3>SNS Notifications</h3>
+          <p>Send instant email or SMS alerts on build success or failure through Amazon Simple Notification Service.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📊</span>
+          <h3>CloudWatch Logs</h3>
+          <p>Full build output captured in CloudWatch for real-time debugging and audit trails.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="use-case-box">
+      <h3>Use Case Example — Netflix</h3>
+      <p>Netflix uses AWS extensively across its delivery infrastructure. Their engineering teams leverage CodePipeline and CodeDeploy alongside services like Lambda and ECS to push thousands of code changes per day globally with zero downtime. The fully managed nature of AWS CI/CD tools means Netflix engineers spend less time maintaining pipeline infrastructure and more time building product features — a critical advantage at their scale.</p>
+    </div>
+  </section>
+
+  <!-- SECTION B -->
+  <section>
+    <div class="section-label">Section B</div>
+    <div class="section-title">Strengths & Weaknesses</div>
+
+    <div class="sw-grid">
+      <div class="sw-col">
+        <div class="sw-col-header"><span class="dot dot-green"></span> Strengths (+)</div>
+        <div class="sw-item"><span class="sw-prefix">+</span> Free tier includes 1 active CodePipeline per month</div>
+        <div class="sw-item"><span class="sw-prefix">+</span> No server maintenance — fully managed infrastructure</div>
+        <div class="sw-item"><span class="sw-prefix">+</span> Native integration with 200+ AWS services</div>
+        <div class="sw-item"><span class="sw-prefix">+</span> Scales automatically from small to enterprise workloads</div>
+        <div class="sw-item"><span class="sw-prefix">+</span> Pay-per-use pricing — no upfront cost</div>
+        <div class="sw-item"><span class="sw-prefix">+</span> Strong IAM-based security and compliance controls</div>
+        <div class="sw-item"><span class="sw-prefix">+</span> GUI-based pipeline editor with drag-and-drop stages</div>
+        <div class="sw-item"><span class="sw-prefix">+</span> Extensive documentation and community support</div>
+      </div>
+      <div class="sw-col">
+        <div class="sw-col-header"><span class="dot dot-red"></span> Areas for Improvement (–)</div>
+        <div class="sw-item"><span class="sw-prefix">–</span> Steep learning curve for AWS beginners</div>
+        <div class="sw-item"><span class="sw-prefix">–</span> Costs can escalate quickly without usage monitoring</div>
+        <div class="sw-item"><span class="sw-prefix">–</span> Heavily tied to AWS ecosystem — limited portability</div>
+        <div class="sw-item"><span class="sw-prefix">–</span> CodePipeline UI less intuitive than GitHub Actions YAML</div>
+        <div class="sw-item"><span class="sw-prefix">–</span> Debugging build failures requires navigating multiple consoles</div>
+        <div class="sw-item"><span class="sw-prefix">–</span> Limited built-in testing integrations vs competitors</div>
+        <div class="sw-item"><span class="sw-prefix">–</span> Free tier insufficient for multi-pipeline student projects</div>
+      </div>
+    </div>
+  </section>
+
+  <a href="index.html" class="back-btn">← Back to Home</a>
+</main>
+
+<footer>
+  OSU MIS Applied Security · DevOps Product Review · Stillwater, OK · Luke Hankins
+</footer>
+
+</body>
+</html>
