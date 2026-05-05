@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final project — Rubric &amp; pipeline QA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #f97316;
+      --bg: #09090b;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.1);
+      --text: #fafafa;
+      --muted: #a1a1aa;
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+      padding: 32px 24px 80px;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    header { margin-bottom: 32px; }
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+    .sub { color: var(--muted); font-size: 14px; margin-top: 12px; max-width: 52ch; }
+    nav.top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-bottom: 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+    }
+    nav.top a { color: var(--orange); text-decoration: none; }
+    nav.top a:hover { text-decoration: underline; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+    h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 14px;
+    }
+    ul { list-style: none; }
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 14px;
+      color: #e4e4e7;
+    }
+    li:last-child { border-bottom: 0; padding-bottom: 0; }
+    input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--orange);
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .fill {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .fill dt {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #71717a;
+      margin-top: 10px;
+    }
+    .fill dd { margin: 4px 0 0 0; color: #d4d4d8; word-break: break-all; }
+    .fill dd:empty::before { content: '— paste URL or board link before demo —'; color: #52525b; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="index.html">Main site</a>
+      <a href="https://dev.azure.com" target="_blank" rel="noopener">Azure Boards</a>
+      <a href="https://github.com/harriibb/AWS" target="_blank" rel="noopener">GitHub repo</a>
+    </nav>
+    <header>
+      <div class="eyebrow">MIS Applied Security · DevOps final</div>
+      <h1>Rubric &amp; pipeline QA</h1>
+      <p class="sub">
+        Use this page during practice and the live demo: confirm each item, then fill in the URLs your team
+        uses for staging and production so graders can verify the working pipeline.
+      </p>
+    </header>
+
+    <section>
+      <h2>Record these (team)</h2>
+      <dl class="fill">
+        <dt>Staging URL</dt>
+        <dd contenteditable="true" spellcheck="false"></dd>
+        <dt>Production URL</dt>
+        <dd contenteditable="true" spellcheck="false"></dd>
+        <dt>Azure Boards (project or sprint)</dt>
+        <dd contenteditable="true" spellcheck="false"></dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Planning</h2>
+      <ul>
+        <li><label><input type="checkbox"> Three pages (or deliverables) split across members with clear ownership.</label></li>
+        <li><label><input type="checkbox"> Work items are user stories, assigned in Azure Boards, with status visible for the sprint.</label></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Front end</h2>
+      <ul>
+        <li><label><input type="checkbox"> Layout reads as intentional: not cluttered; spacing and hierarchy support scanning.</label></li>
+        <li><label><input type="checkbox"> Color, imagery, and typography fit the product story (campaign + review).</label></li>
+        <li><label><input type="checkbox"> Navigation and section order follow a logical flow for a first-time visitor.</label></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Working pipeline</h2>
+      <ul>
+        <li><label><input type="checkbox"> Continuous integration is configured (e.g. push to main triggers CodeBuild / pipeline).</label></li>
+        <li><label><input type="checkbox"> Staging environment has a reachable URL; build output deploys there first.</label></li>
+        <li><label><input type="checkbox"> Production deployment requires approval (each member or designated approvers) before release.</label></li>
+        <li><label><input type="checkbox"> Production URL is documented and matches the approved release.</label></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>New code &amp; quality</h2>
+      <ul>
+        <li><label><input type="checkbox"> Individual contributions are visible in history (commits, PRs, or Azure DevOps changesets).</label></li>
+        <li><label><input type="checkbox"> Unit tests exist where required (per page or per feature); team can point to test runs in CI.</label></li>
+        <li><label><input type="checkbox"> Pull requests used for merges to main (or trunk), with review before merge.</label></li>
+        <li><label><input type="checkbox"> New technology (Crash / Real / APM or assigned topic) is implemented and demo-ready.</label></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Live presentation (5–7 min)</h2>
+      <ul>
+        <li><label><input type="checkbox"> Show: change merged to master → pipeline runs → artifact on staging.</label></li>
+        <li><label><input type="checkbox"> Show: approval gate before production promotion (who approves, where in the tool).</label></li>
+        <li><label><input type="checkbox"> Presenters are prepared, professional, and within time.</label></li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>

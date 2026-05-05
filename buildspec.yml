@@ -6,4 +6,5 @@ phases:
 artifacts:
   files:
     - index.html
+    - test.html
   discard-paths: yes
