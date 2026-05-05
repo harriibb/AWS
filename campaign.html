@@ -1,253 +1,156 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Campaign · Bring Micro Center to Stillwater</title>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Stillwater · Micro Center Campaign</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cyan: #22d3ee; --orange: #f97316; --red: #f43f5e;
-      --bg: #000; --surface: rgba(255,255,255,0.03);
-      --border: rgba(255,255,255,0.08); --text: #fafafa; --muted: #a1a1aa;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
-    body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; z-index: 0; }
-    body::after { content: ''; position: fixed; left: 0; right: 0; height: 180px; background: linear-gradient(to bottom, transparent 0%, rgba(249,115,22,0.04) 50%, transparent 100%); animation: scanline 10s linear infinite; pointer-events: none; z-index: 1; }
-    @keyframes scanline { 0% { top: -200px; } 100% { top: 110vh; } }
-    @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    @keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
-
-    /* ── PAGE HERO ── */
-    .page-hero { position: relative; min-height: 40vh; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 2; background: radial-gradient(ellipse at center, rgba(30,12,4,0.95) 0%, rgba(0,0,0,0.98) 55%, #000 100%); }
-    .page-hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 250px; background: radial-gradient(ellipse, rgba(249,115,22,0.12) 0%, transparent 70%); pointer-events: none; }
-    .page-hero-content { position: relative; z-index: 2; text-align: center; padding: 60px 24px 40px; }
-    .page-hero-tag { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(249,115,22,0.4); background: rgba(249,115,22,0.08); border-radius: 999px; padding: 6px 16px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; }
-    .page-hero h1 { font-family: 'Oswald', sans-serif; font-size: clamp(36px,7vw,80px); font-weight: 700; line-height: 0.95; text-transform: uppercase; color: #fff; }
-    .page-hero h1 .grad { background: linear-gradient(90deg,#fdba74,#f97316,#ea580c); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
-    .page-hero-sub { font-size: 15px; color: #71717a; margin-top: 14px; font-family: 'DM Mono', monospace; letter-spacing: 0.1em; }
-
-    /* ── NAV ── */
-    #stickyNav { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.82); backdrop-filter: blur(20px); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #fff; }
-    .nav-logo .grad { background: linear-gradient(90deg,#fdba74,#f97316,#ea580c); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
-    .nav-cursor { display: inline-block; width: 4px; height: 14px; background: var(--orange); margin-left: 2px; vertical-align: middle; box-shadow: 0 0 8px rgba(249,115,22,0.75); animation: cursorBlink 1.05s steps(1) infinite; }
-    .nav-links { display: flex; gap: 20px; overflow-x: auto; }
-    .nav-links a { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #52525b; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
-    .nav-links a:hover, .nav-links a.active { color: var(--orange); }
-
-    /* ── SECTIONS ── */
-    .section { display: block; padding: 64px 24px; max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
-    .section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
-    .section-title { font-family: 'Oswald', sans-serif; font-size: clamp(32px,5vw,52px); font-weight: 700; text-transform: uppercase; line-height: 0.95; color: #fff; margin-bottom: 32px; }
-    .section-divider { border: none; border-top: 1px solid rgba(249,115,22,0.12); margin: 0 auto; max-width: 900px; }
-
-    /* ── DEMO STEPS ── */
-    .demo-step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); }
-    .demo-num { font-family: 'Oswald', sans-serif; font-size: 40px; font-weight: 700; color: var(--orange); line-height: 1; min-width: 40px; opacity: 0.6; }
-    .demo-body h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; color: #fff; }
-    .demo-body p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-top: 6px; }
-    .code-pill { display: inline-block; background: rgba(0,0,0,0.6); border: 1px solid rgba(249,115,22,0.2); color: #fdba74; font-family: 'DM Mono', monospace; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 4px 2px 0; }
-
-    /* ── CARDS ── */
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
-    .card { background: rgba(15,10,5,0.8); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 28px; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; cursor: default; }
-    .card:hover { border-color: rgba(249,115,22,0.4); box-shadow: 0 0 60px -15px rgba(249,115,22,0.25); transform: translateY(-3px); }
-    .card-icon { width: 56px; height: 56px; background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
-    .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #fff; }
-    .card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-    .prose { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
-
-    /* ── QUOTE ── */
-    .quote-block { border-left: 3px solid var(--orange); padding: 16px 20px; background: var(--surface); border-radius: 0 8px 8px 0; margin: 20px 0; font-size: 15px; color: #d4d4d8; line-height: 1.7; }
-
-    /* ── MARKET DATA ── */
-    .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 24px 0; }
-    .market-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; }
-    .market-stat-num { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 700; color: var(--orange); line-height: 1; }
-    .market-stat-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #52525b; margin-top: 6px; }
-    .market-stat-sub { font-size: 12px; color: #3f3f46; margin-top: 4px; }
-
-    /* ── CTA BANNER ── */
-    .cta-banner { position: relative; overflow: hidden; border: 1px solid rgba(249,115,22,0.3); border-radius: 12px; padding: 40px 32px; text-align: center; margin-top: 32px; background: var(--surface); box-shadow: 0 0 80px -20px rgba(249,115,22,0.35); }
-    .cta-banner::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(249,115,22,0.15) 0%, transparent 70%); pointer-events: none; }
-    .cta-banner h2 { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 700; text-transform: uppercase; color: #fff; margin-bottom: 10px; }
-    .cta-banner p { font-size: 14px; color: var(--muted); }
-
-    /* ── SCROLL ── */
-    .scroll-reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
-    .scroll-reveal-stagger > * { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .scroll-reveal-stagger.revealed > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
-    .scroll-reveal-stagger.revealed > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.1s; }
-    .scroll-reveal-stagger.revealed > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.2s; }
-    .scroll-reveal-stagger.revealed > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.3s; }
-    .scroll-reveal-stagger.revealed > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.4s; }
-    .scroll-reveal-stagger.revealed > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.5s; }
-
-    /* ── FOOTER ── */
-    footer { position: relative; z-index: 2; border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; }
-    footer span { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #3f3f46; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--cyan:#22d3ee;--orange:#f97316;--red:#f43f5e;--bg:#000;--surface:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.08);--text:#fafafa;--muted:#a1a1aa}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+    body::after{content:'';position:fixed;left:0;right:0;height:180px;background:linear-gradient(to bottom,transparent 0%,rgba(249,115,22,0.04) 50%,transparent 100%);animation:scanline 10s linear infinite;pointer-events:none;z-index:1}
+    @keyframes scanline{0%{top:-200px}100%{top:110vh}}
+    @keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+    @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+    .page-hero{position:relative;min-height:38vh;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:2;background:radial-gradient(ellipse at center,rgba(30,12,4,0.95) 0%,rgba(0,0,0,0.98) 55%,#000 100%)}
+    .page-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:250px;background:radial-gradient(ellipse,rgba(249,115,22,0.12) 0%,transparent 70%);pointer-events:none}
+    .page-hero-content{position:relative;z-index:2;text-align:center;padding:60px 24px 40px}
+    .page-hero-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(249,115,22,0.4);background:rgba(249,115,22,0.08);border-radius:999px;padding:6px 16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:20px}
+    .page-hero h1{font-family:'Oswald',sans-serif;font-size:clamp(36px,7vw,80px);font-weight:700;line-height:0.95;text-transform:uppercase;color:#fff}
+    .page-hero h1 .grad{background:linear-gradient(90deg,#fdba74,#f97316,#ea580c);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite}
+    .page-hero-sub{font-size:15px;color:#71717a;margin-top:14px;font-family:'DM Mono',monospace;letter-spacing:0.1em}
+    #stickyNav{position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.82);backdrop-filter:blur(20px);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#fff}
+    .nav-logo .grad{background:linear-gradient(90deg,#fdba74,#f97316,#ea580c);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite}
+    .nav-cursor{display:inline-block;width:4px;height:14px;background:var(--orange);margin-left:2px;vertical-align:middle;box-shadow:0 0 8px rgba(249,115,22,0.75);animation:cursorBlink 1.05s steps(1) infinite}
+    .nav-links{display:flex;gap:20px;overflow-x:auto}
+    .nav-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#52525b;text-decoration:none;transition:color 0.2s;white-space:nowrap}
+    .nav-links a:hover,.nav-links a.active{color:var(--orange)}
+    .section{display:block;padding:64px 24px;max-width:900px;margin:0 auto;position:relative;z-index:2}
+    .section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+    .section-title{font-family:'Oswald',sans-serif;font-size:clamp(32px,5vw,52px);font-weight:700;text-transform:uppercase;line-height:0.95;color:#fff;margin-bottom:32px}
+    .section-divider{border:none;border-top:1px solid rgba(249,115,22,0.12);margin:0 auto;max-width:900px}
+    .prose{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:16px}
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:28px 0}
+    .stat-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
+    .stat-block.accent{border-color:rgba(249,115,22,0.3);background:rgba(249,115,22,0.04)}
+    .stat-num{font-family:'Oswald',sans-serif;font-size:38px;font-weight:700;color:var(--orange);line-height:1}
+    .stat-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#52525b;margin-top:6px}
+    .stat-sub{font-size:12px;color:#3f3f46;margin-top:4px;line-height:1.4}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:24px 0}
+    .card{background:rgba(15,10,5,0.8);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px;transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s}
+    .card:hover{border-color:rgba(249,115,22,0.4);box-shadow:0 0 60px -15px rgba(249,115,22,0.25);transform:translateY(-3px)}
+    .card-icon{width:56px;height:56px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+    .card h3{font-size:18px;font-weight:600;margin-bottom:10px;color:#fff}
+    .card p{font-size:14px;color:var(--muted);line-height:1.65}
+    .cta-banner{position:relative;overflow:hidden;border:1px solid rgba(249,115,22,0.3);border-radius:12px;padding:40px 32px;text-align:center;margin-top:32px;background:var(--surface);box-shadow:0 0 80px -20px rgba(249,115,22,0.35)}
+    .cta-banner::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:400px;height:200px;background:radial-gradient(ellipse,rgba(249,115,22,0.15) 0%,transparent 70%);pointer-events:none}
+    .cta-banner h2{font-family:'Oswald',sans-serif;font-size:36px;font-weight:700;text-transform:uppercase;color:#fff;margin-bottom:10px}
+    .cta-banner p{font-size:14px;color:var(--muted)}
+    .scroll-reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+    .scroll-reveal.revealed{opacity:1;transform:translateY(0)}
+    .scroll-reveal-stagger>*{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+    .scroll-reveal-stagger.revealed>*:nth-child(1){opacity:1;transform:none;transition-delay:0s}
+    .scroll-reveal-stagger.revealed>*:nth-child(2){opacity:1;transform:none;transition-delay:0.1s}
+    .scroll-reveal-stagger.revealed>*:nth-child(3){opacity:1;transform:none;transition-delay:0.2s}
+    .scroll-reveal-stagger.revealed>*:nth-child(4){opacity:1;transform:none;transition-delay:0.3s}
+    .scroll-reveal-stagger.revealed>*:nth-child(5){opacity:1;transform:none;transition-delay:0.4s}
+    .scroll-reveal-stagger.revealed>*:nth-child(6){opacity:1;transform:none;transition-delay:0.5s}
+    footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20px 24px;text-align:center}
+    footer span{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#3f3f46}
   </style>
 </head>
 <body>
-
-<!-- ══ PAGE HERO ═══════════════════════════════════════════════ -->
 <section class="page-hero">
   <div class="page-hero-glow"></div>
   <div class="page-hero-content">
-    <div class="page-hero-tag">Demo &amp; Campaign · Luke Hankins</div>
-    <h1>Stillwater<br><span class="grad">Needs This</span></h1>
-    <p class="page-hero-sub">AWS Feature Demo · Market Opportunity · The Case for Micro Center</p>
+    <div class="page-hero-tag">Page 3 · Luke Hankins</div>
+    <h1>Why <span class="grad">Stillwater</span></h1>
+    <p class="page-hero-sub">Demographics · Economic Benefits · The Case for Micro Center</p>
   </div>
 </section>
 
-<!-- ══ STICKY NAV ═══════════════════════════════════════════════ -->
 <div id="stickyNav">
   <div class="nav-logo">Micro<span class="grad">Center</span><span class="nav-cursor"></span></div>
   <div class="nav-links">
     <a href="index.html">Home</a>
-    <a href="market.html">Market</a>
-    <a href="campaign.html" class="active">Campaign</a>
-    <a href="#demo">Demo</a>
-    <a href="#campaign">Campaign</a>
+    <a href="market.html">Retail Gap</a>
+    <a href="campaign.html" class="active">Why Stillwater</a>
+    <a href="#demographics">Demographics</a>
+    <a href="#economic">Economic Benefits</a>
   </div>
 </div>
 
-<!-- ══ DEMO — TWO KEY FEATURES ════════════════════════════════ -->
-<section id="demo" class="section scroll-reveal">
-  <div class="section-label">Demonstration — Luke Hankins</div>
-  <div class="section-title">Two Key Features</div>
+<section id="demographics" class="section scroll-reveal">
+  <div class="section-label">Page 3 · Luke Hankins</div>
+  <div class="section-title">Demographics Snapshot</div>
+  <p class="prose">Stillwater's demographics are uniquely well-suited for a Micro Center location. The city's population profile — young, educated, tech-forward, and concentrated — mirrors the customer base that Micro Center has successfully served in comparable university markets. Three distinct segments drive the opportunity: students, young professionals, and families.</p>
 
-  <p class="prose">The following two features were demonstrated as part of this review to illustrate the practical capabilities of AWS as a CI/CD platform.</p>
+  <div class="section-label" style="margin-top:40px">Students</div>
+  <p class="prose">With 27,655 students enrolled at OSU Stillwater as of Fall 2025, the student population alone represents a captive customer base of unprecedented density for a city of Stillwater's size. The median age in Stillwater is just 23.9 years — one of the lowest in Oklahoma — reflecting the overwhelming student influence on city demographics. Undergraduate enrollment is approaching 23,000, with a record freshman class of over 5,000 arriving in Fall 2024. These students are actively purchasing laptops, monitors, cables, components, and peripherals for coursework, gaming, and personal projects throughout the academic year.</p>
 
-  <div class="demo-step">
-    <div class="demo-num">01</div>
-    <div class="demo-body">
-      <h3>Automated Pipeline via AWS CodePipeline</h3>
-      <p>We configured a three-stage pipeline (Source → Build → Deploy) connected to a GitHub repository. On every code push, CodePipeline automatically triggered CodeBuild to compile the app and run tests, then deployed the artifact to an S3-hosted static site.</p>
-      <p><strong style="color:#fff">Value:</strong> A developer commits code and within minutes it is live — no SSH, no manual uploads.</p>
-      <span class="code-pill">Source: GitHub</span>
-      <span class="code-pill">Build: buildspec.yml</span>
-      <span class="code-pill">Deploy: S3</span>
-    </div>
+  <div class="stat-grid scroll-reveal-stagger">
+    <div class="stat-block accent"><div class="stat-num">27,655</div><div class="stat-label">OSU Students</div><div class="stat-sub">Fall 2025 · All-time enrollment record</div></div>
+    <div class="stat-block accent"><div class="stat-num">23.9</div><div class="stat-label">Median Age</div><div class="stat-sub">Years · Among youngest cities in Oklahoma</div></div>
+    <div class="stat-block accent"><div class="stat-num">5,000+</div><div class="stat-label">New Freshmen (2024)</div><div class="stat-sub">Record class · 8% increase year-over-year</div></div>
+    <div class="stat-block accent"><div class="stat-num">127</div><div class="stat-label">Countries Represented</div><div class="stat-sub">International students at OSU Stillwater</div></div>
   </div>
 
-  <div class="demo-step">
-    <div class="demo-num">02</div>
-    <div class="demo-body">
-      <h3>Build Notifications via Amazon SNS + CloudWatch</h3>
-      <p>We connected the pipeline to an SNS topic that sends email alerts on build success or failure. CloudWatch logs were configured to capture full CodeBuild output, allowing the team to diagnose errors without leaving the AWS console.</p>
-      <p><strong style="color:#fff">Value:</strong> Instant visibility into pipeline health — failed builds surface immediately via email.</p>
-      <span class="code-pill">CloudWatch Logs</span>
-      <span class="code-pill">SNS Email Alert</span>
-      <span class="code-pill">EventBridge Rule</span>
-    </div>
-  </div>
-</section>
+  <div class="section-label" style="margin-top:40px">Young Professionals</div>
+  <p class="prose">Beyond the student body, Stillwater hosts a significant young professional population tied to OSU's research enterprise, Stillwater Medical Center, Meridian Technology Center, and the Oklahoma Technology & Research Park — a 170-acre campus for technology startups and research spinoffs. Employment in Stillwater grew 4.7% from 2023 to 2024, adding over 1,000 jobs. This professional class represents consistent, year-round purchasing power that extends beyond the academic calendar.</p>
 
-<!-- ══ MARKET DATA ══════════════════════════════════════════════ -->
-<hr class="section-divider">
-<section class="section scroll-reveal">
-  <div class="section-label">Market Snapshot</div>
-  <div class="section-title">The Numbers</div>
-
-  <div class="market-grid">
-    <div class="market-stat">
-      <div class="market-stat-num">28K</div>
-      <div class="market-stat-label">OSU Students</div>
-      <div class="market-stat-sub">Stillwater campus enrollment</div>
-    </div>
-    <div class="market-stat">
-      <div class="market-stat-num">3,500+</div>
-      <div class="market-stat-label">Tech Majors</div>
-      <div class="market-stat-sub">CS, MIS, and EE programs</div>
-    </div>
-    <div class="market-stat">
-      <div class="market-stat-num">215mi</div>
-      <div class="market-stat-label">Nearest Location</div>
-      <div class="market-stat-sub">Dallas, TX — 3.5 hour drive</div>
-    </div>
-    <div class="market-stat">
-      <div class="market-stat-num">0</div>
-      <div class="market-stat-label">PC Part Stores</div>
-      <div class="market-stat-sub">Within 60 miles of Stillwater</div>
-    </div>
-    <div class="market-stat">
-      <div class="market-stat-num">45mi</div>
-      <div class="market-stat-label">Nearest Best Buy</div>
-      <div class="market-stat-sub">Limited component selection</div>
-    </div>
-    <div class="market-stat">
-      <div class="market-stat-num">$2.4B</div>
-      <div class="market-stat-label">Annual Spend</div>
-      <div class="market-stat-sub">OSU student purchasing power est.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CAMPAIGN ════════════════════════════════════════════════ -->
-<hr class="section-divider">
-<section id="campaign" class="section scroll-reveal">
-  <div class="section-label">Stillwater, OK Campaign — Luke Hankins</div>
-  <div class="section-title">Bring Micro Center Here</div>
-
-  <p class="prose">Stillwater is home to Oklahoma State University — one of the largest engineering and technology universities in the region. With over 3,500 students enrolled in Computer Science, Management Information Systems, and Electrical Engineering programs, the demand for quality tech retail is undeniable and currently completely unmet.</p>
-
-  <div class="quote-block">
-    "The nearest Micro Center is in Dallas — a 3.5 hour drive. OSU students are forced to pay premium prices on Amazon or wait days for shipping on parts they need today. A Micro Center in Stillwater would serve students, faculty, and the broader north-central Oklahoma tech community from day one."
-  </div>
+  <div class="section-label" style="margin-top:40px">Families</div>
+  <p class="prose">Stillwater's family demographic benefits from a cost of living approximately 10% below the national average, making discretionary spending on technology more accessible than in comparable markets. More than 48% of Stillwater residents hold at least a bachelor's degree — the highest educated workforce in Oklahoma — and family households represent a reliable market for home computing, gaming systems, smart home devices, and repair services. With over 680,000 annual visitors to OSU events and a regional draw area of approximately 85,000 people, a Micro Center location would serve well beyond Stillwater's city limits.</p>
 
   <div class="card-grid scroll-reveal-stagger">
-    <div class="card">
-      <div class="card-icon">🎓</div>
-      <h3>Built-in Customer Base</h3>
-      <p>28,000 students, thousands actively building PCs, upgrading laptops, and sourcing components for coursework and personal projects.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🏗️</div>
-      <h3>Growing Tech Ecosystem</h3>
-      <p>OSU's Innovation District and Stillwater's emerging startup scene create sustained, recurring demand for hardware, tools, and peripherals.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📍</div>
-      <h3>Strategic Location</h3>
-      <p>Situated between OKC and Tulsa on Highway 51 — a Micro Center here draws customers from the entire north-central Oklahoma region.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">💻</div>
-      <h3>Zero Local Competition</h3>
-      <p>The nearest Best Buy is 45 minutes away. No dedicated PC component retailer within 60 miles. The market is completely wide open.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">⚡</div>
-      <h3>Same-Day Access</h3>
-      <p>Students currently wait 2–3 days for Amazon shipping or drive 215 miles to Dallas. Micro Center solves this instantly.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🔬</div>
-      <h3>Research &amp; Lab Demand</h3>
-      <p>OSU's engineering labs, robotics teams, and research departments need components on short notice — a local store is critical infrastructure.</p>
-    </div>
+    <div class="card"><div class="card-icon">🎓</div><h3>Students</h3><p>27,655 enrolled at OSU. Average local spending of $4,300–$10,200/yr. Constant demand for laptops, GPUs, peripherals, cables, and components for coursework and personal builds.</p></div>
+    <div class="card"><div class="card-icon">💼</div><h3>Young Professionals</h3><p>Tech-sector workers at OSU's research park, Meridian Tech, and Stillwater's growing startup community. Employment grew 4.7% in 2024. Consistent year-round purchasing power.</p></div>
+    <div class="card"><div class="card-icon">🏠</div><h3>Families</h3><p>Cost of living 10% below national average with 48%+ degree attainment. Strong demand for home computing, gaming, smart home devices, and professional repair services.</p></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+<section id="economic" class="section scroll-reveal">
+  <div class="section-label">Economic Benefits</div>
+  <div class="section-title">What Micro Center Brings</div>
+  <p class="prose">A Micro Center location in Stillwater would generate measurable, lasting economic benefits for the city, Payne County, and the broader north-central Oklahoma region. These are not speculative — they mirror the documented economic impact of retail anchors in comparable university markets. Based on Oklahoma's sales tax rate of 4.5% and Stillwater's local rate, a store generating $20M–$30M in annual revenue — conservative for a Micro Center in a market this size — would deliver significant recurring public revenue.</p>
+
+  <div class="section-label" style="margin-top:40px">Job Creation</div>
+  <p class="prose">A full-size Micro Center location typically employs 100–200 people, including retail associates, technical staff, service technicians, and management. In Stillwater's market, this would represent a meaningful expansion of the retail employment base. Oklahoma's Quality Jobs incentive program offers qualifying businesses quarterly cash payments of up to 5% of new payrolls for up to 10 years, making Stillwater an especially attractive location for new retail employment investment. OSU students would benefit directly from part-time employment opportunities within walking or biking distance of campus.</p>
+
+  <div class="stat-grid scroll-reveal-stagger">
+    <div class="stat-block accent"><div class="stat-num">100–200</div><div class="stat-label">Estimated Direct Jobs</div><div class="stat-sub">Retail, technical, service & management roles</div></div>
+    <div class="stat-block accent"><div class="stat-num">5%</div><div class="stat-label">Oklahoma Quality Jobs Incentive</div><div class="stat-sub">Of new payroll · up to 10 years · qualifying businesses</div></div>
+    <div class="stat-block accent"><div class="stat-num">4.7%</div><div class="stat-label">Stillwater Employment Growth</div><div class="stat-sub">2023–2024 · 1,000+ jobs added citywide</div></div>
+  </div>
+
+  <div class="section-label" style="margin-top:40px">Local Tax Revenue</div>
+  <p class="prose">Stillwater generates $4.5 million annually in sales tax from OSU-related retail activity alone. A Micro Center store would add materially to this base. Oklahoma's combined state and local sales tax rate in Stillwater is approximately 9%, meaning every $10 million in annual sales generates roughly $900,000 in combined tax revenue. A store at the lower end of typical Micro Center volume ($20M/yr) would contribute approximately $1.8 million annually to state and local coffers — funding schools, roads, and public services. The City of Stillwater has active Tax Increment Financing infrastructure and business incentive programs ready to support qualifying retail development.</p>
+
+  <div class="section-label" style="margin-top:40px">Increased Retail Traffic</div>
+  <p class="prose">One of the documented effects of anchor retail stores is the halo effect on surrounding businesses. OSU draws 680,000 visitors annually to sports and academic events, with those visitors spending $47 million in Stillwater. A Micro Center location — accessible from both Highway 51 (the Stillwater–Tulsa corridor) and Highway 177 (the OKC route) — would attract regional customers from Ponca City, Perry, Guthrie, and communities throughout north-central Oklahoma who currently have no nearby tech retail option. This regional draw amplifies the direct sales impact and benefits the broader Stillwater retail economy.</p>
+
+  <div class="card-grid scroll-reveal-stagger">
+    <div class="card"><div class="card-icon">💰</div><h3>Sales Tax Revenue</h3><p>~9% combined Oklahoma + Stillwater sales tax. A $20M/yr store adds approximately $1.8M annually in public revenue — funding schools, roads, and city services.</p></div>
+    <div class="card"><div class="card-icon">👥</div><h3>Direct Employment</h3><p>100–200 jobs per location. Part-time roles ideal for OSU students. Full-time technical positions for service technicians and managers with career growth paths.</p></div>
+    <div class="card"><div class="card-icon">🗺️</div><h3>Regional Draw</h3><p>Highway 51 and 177 corridors bring Ponca City, Perry, Guthrie, and north-central Oklahoma communities to Stillwater. Micro Center becomes a destination anchor for the region.</p></div>
+    <div class="card"><div class="card-icon">📈</div><h3>Retail Halo Effect</h3><p>Anchor retailers drive traffic to surrounding businesses. OSU's 680,000 annual event visitors already spend $47M in Stillwater — a Micro Center amplifies that regional retail draw.</p></div>
+    <div class="card"><div class="card-icon">🏗️</div><h3>Development Incentives</h3><p>Stillwater has active TIF districts, fee waiver programs, and Oklahoma's Quality Jobs incentive. The business environment is explicitly pro-growth and ready for retail investment.</p></div>
+    <div class="card"><div class="card-icon">🎯</div><h3>Zero Competition</h3><p>No competing specialty computer retailer exists within 60 miles of Stillwater. Micro Center would own this market entirely from day one — no margin pressure, no poaching.</p></div>
   </div>
 
   <div class="cta-banner">
     <h2>Stillwater Is Ready. Are You?</h2>
-    <p>Join us in calling on Micro Center to open its next location in Stillwater, Oklahoma — where 28,000 students are waiting.</p>
+    <p>27,655 students. A growing city. $3.82 billion in OSU economic activity. Zero Micro Center locations in the entire state of Oklahoma. The case for Stillwater is undeniable — the only thing missing is the store.</p>
   </div>
 </section>
 
-<footer>
-  <span>© OSU MIS Applied Security · DevOps Product Review · Stillwater, OK · Luke Hankins</span>
-</footer>
-
+<footer><span>© Bring Micro Center to Stillwater · OSU MIS · Luke Hankins</span></footer>
 <script>
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('revealed'); });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.scroll-reveal, .scroll-reveal-stagger').forEach(el => revealObserver.observe(el));
+  const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('revealed');}),{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.scroll-reveal,.scroll-reveal-stagger').forEach(el=>ro.observe(el));
 </script>
 </body>
 </html>
