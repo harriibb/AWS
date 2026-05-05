@@ -82,7 +82,10 @@
     .nav-cursor{display:inline-block;width:4px;height:14px;background:var(--orange);margin-left:2px;vertical-align:middle;box-shadow:0 0 8px rgba(249,115,22,0.75);animation:cursorBlink 1.05s steps(1) infinite}
     .nav-links{display:flex;gap:20px;overflow-x:auto}
     .nav-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#52525b;text-decoration:none;transition:color 0.2s;white-space:nowrap}
-    .nav-links a:hover,.nav-links a.active{color:var(--orange)}
+    .nav-links a.page-link:hover,
+    .nav-links a.page-link.active { color: #f97316; }
+    .nav-links a.anchor-link:hover,
+    .nav-links a.anchor-link:active { color: #22d3ee; }
 
     /* MARQUEE */
     .marquee-wrap{position:relative;z-index:2;overflow:hidden;border-top:1px solid rgba(249,115,22,0.1);border-bottom:1px solid rgba(249,115,22,0.1);background:rgba(0,0,0,0.8);padding:14px 0;white-space:nowrap}
@@ -345,10 +348,10 @@
 <div id="stickyNav">
   <div class="nav-logo">Micro<span class="grad">Center</span><span class="nav-cursor"></span></div>
   <div class="nav-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="market.html">Retail Gap</a>
-    <a href="campaign.html">Why Stillwater</a>
-    <a href="#market-opportunity">Market</a>
+    <a href="index.html" class="page-link active">Home</a>
+    <a href="market.html" class="page-link">Retail Gap</a>
+    <a href="campaign.html" class="page-link">Why Stillwater</a>
+    <a href="#market-opportunity" class="anchor-link">Market</a>
   </div>
 </div>
 
