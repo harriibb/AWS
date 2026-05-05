@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/index.page.test.mjs tests/test.page.test.mjs"
+    "test": "node --test tests/index.page.test.mjs tests/test.page.test.mjs tests/market.page.test.mjs"
   }
 }
