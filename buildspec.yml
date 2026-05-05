@@ -3,6 +3,7 @@ phases:
   build:
     commands:
       - echo "Build started"
+      - node --test tests/index.page.test.mjs tests/test.page.test.mjs
 artifacts:
   files:
     - index.html

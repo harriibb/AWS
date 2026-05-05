@@ -24,7 +24,9 @@ There is **no** Node/React backend, **no** build toolchain in-repo (no `package.
 |------|------|
 | `index.html` | Entire site: inline CSS (~1.6k lines), HTML body, inline JS (~270 lines). **~2,462 lines total.** |
 | `test.html` | Rubric / pipeline QA checklist (staging & prod URL placeholders, checkboxes). Linked from main nav as **Rubric QA**. |
-| `buildspec.yml` | AWS CodeBuild spec: echo + publish `index.html` and `test.html` as build artifacts (`discard-paths: yes`). |
+| `tests/*.test.mjs` | Node **unit tests** (built-in `node:test`): one file for **`index.html`**, one for **`test.html`**. Run `npm test`. |
+| `package.json` | Declares `npm test` → `node --test` on the two page test files. No npm dependencies. |
+| `buildspec.yml` | AWS CodeBuild: runs unit tests, then publishes `index.html` and `test.html` as artifacts (`discard-paths: yes`). |
 | `assets/*.png` | Image files used (or available) for the photo grid / hero; see §5 for which are referenced. |
 | `index.html.bak` | Backup copy of HTML (present on disk; typically not committed). |
 | `.idea/` | JetBrains Rider / IDE metadata (`vcs.xml`, `indexLayout.xml`, `.gitignore` for IDE noise). |

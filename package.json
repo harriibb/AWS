@@ -1,0 +1,8 @@
+{
+  "name": "stillwater-microcenter-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/index.page.test.mjs tests/test.page.test.mjs"
+  }
+}
