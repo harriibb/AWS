@@ -8,4 +8,6 @@ artifacts:
   files:
     - index.html
     - test.html
+    - market.html
+    - campaign.html
   discard-paths: yes
